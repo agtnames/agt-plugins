@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "agt": {
+      "command": "npx",
+      "args": ["-y", "@agtnames/mcp@1.1.0"],
+      "env": {
+        "AGT_CHAIN": "${AGT_CHAIN:-polygon}",
+        "AGT_RPC_URL": "${AGT_RPC_URL:-}",
+        "AGT_REGISTRY": "${AGT_REGISTRY:-}",
+        "AGT_LEGACY": "${AGT_LEGACY:-0}",
+        "AGT_IPFS_GATEWAY": "${AGT_IPFS_GATEWAY:-https://dweb.link/ipfs/}",
+        "AGT_TIMEOUT_MS": "${AGT_TIMEOUT_MS:-10000}"
+      },
+      "timeout": 60000
+    }
+  }
+}

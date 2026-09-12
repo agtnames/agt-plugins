@@ -1,0 +1,22 @@
+{
+  "name": "agtnames",
+  "owner": {
+    "name": "AGT Domains LLC",
+    "url": "https://agtnames.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for .agt agent names — resolve, verify and discover AI agents by name on AGT Registry v2. Docs: https://agtnames.com/docs/claude-code"
+  },
+  "plugins": [
+    {
+      "name": "agt",
+      "source": "./plugins/agt",
+      "description": ".agt agent names inside Claude Code: resolve a name to its owner and records, verify its manifest, find its MCP/A2A endpoints, check availability. Read-only; no configuration needed for Polygon mainnet.",
+      "homepage": "https://agtnames.com/docs/claude-code",
+      "repository": "https://github.com/ds1/agt-plugins",
+      "license": "MIT",
+      "keywords": ["agt", "agent-identity", "mcp", "naming", "polygon"],
+      "category": "productivity"
+    }
+  ]
+}

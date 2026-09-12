@@ -1,0 +1,75 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: manifests · pin · server (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Plugin version tracks the pinned server (major.minor) and the pin is exact
+        id: pin
+        shell: bash
+        run: |
+          node -e '
+            const fs = require("fs");
+            const plugin = JSON.parse(fs.readFileSync("plugins/agt/.claude-plugin/plugin.json", "utf8"));
+            const mcp = JSON.parse(fs.readFileSync("plugins/agt/.mcp.json", "utf8"));
+            const market = JSON.parse(fs.readFileSync(".claude-plugin/marketplace.json", "utf8"));
+            const spec = mcp.mcpServers.agt.args.find((a) => a.startsWith("@agtnames/mcp@"));
+            if (!spec) throw new Error(".mcp.json must launch @agtnames/mcp@<exact version>");
+            const pin = spec.split("@").pop();
+            if (!/^\d+\.\d+\.\d+$/.test(pin)) throw new Error(`pin must be exact x.y.z, got ${pin}`);
+            const mm = (v) => v.split(".").slice(0, 2).join(".");
+            if (mm(plugin.version) !== mm(pin)) throw new Error(`plugin.json ${plugin.version} does not track server ${pin} (major.minor)`);
+            if (!market.plugins.some((p) => p.name === plugin.name && p.source === "./plugins/agt")) throw new Error("marketplace.json does not list ./plugins/agt as " + plugin.name);
+            if (market.plugins.some((p) => "version" in p)) throw new Error("marketplace.json must not carry a version; plugin.json is the source of truth");
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `pin=${pin}\n`);
+            console.log(`plugin ${plugin.version} → @agtnames/mcp@${pin}`);
+          '
+
+      - name: Pinned server exists on npm and answers --version
+        shell: bash
+        run: |
+          v="$(npx -y @agtnames/mcp@${{ steps.pin.outputs.pin }} --version)"
+          test "$v" = "${{ steps.pin.outputs.pin }}" || { echo "expected ${{ steps.pin.outputs.pin }}, got $v"; exit 1; }
+
+      - name: Pinned server speaks MCP over stdio when launched the way .mcp.json launches it
+        shell: bash
+        run: |
+          node -e '
+            const { spawn } = require("child_process");
+            const p = spawn("npx", ["-y", "@agtnames/mcp@${{ steps.pin.outputs.pin }}"], { shell: true, env: { ...process.env, AGT_CHAIN: "localhost", AGT_REGISTRY: "0x0000000000000000000000000000000000000001", AGT_RPC_URL: "http://127.0.0.1:1" } });
+            let out = "";
+            p.stdout.on("data", (d) => (out += d));
+            p.stdin.write(JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "ci", version: "0" } } }) + "\n");
+            setTimeout(() => { p.stdin.write(JSON.stringify({ jsonrpc: "2.0", method: "notifications/initialized" }) + "\n"); p.stdin.write(JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }) + "\n"); }, 1500);
+            setTimeout(() => {
+              const msgs = out.split("\n").map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+              const init = msgs.find((m) => m.id === 1), tools = msgs.find((m) => m.id === 2);
+              p.stdin.end();
+              if (!init || init.result.serverInfo.version !== "${{ steps.pin.outputs.pin }}") { console.error("initialize failed:", out.slice(0, 500)); process.exit(1); }
+              if (!tools || tools.result.tools.length !== 5) { console.error("tools/list failed:", out.slice(0, 500)); process.exit(1); }
+              console.log("ok:", tools.result.tools.map((t) => t.name).join(", "));
+            }, 6000);
+          '
+
+      - name: claude plugin validate
+        shell: bash
+        run: |
+          npm i -g @anthropic-ai/claude-code
+          claude plugin validate .
+          claude plugin validate plugins/agt
