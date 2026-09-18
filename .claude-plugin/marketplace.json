@@ -11,7 +11,7 @@
     {
       "name": "agt",
       "source": "./plugins/agt",
-      "description": ".agt agent names inside Claude Code: resolve a name to its owner and records, verify its manifest, find its MCP/A2A endpoints, check availability. Read-only; no configuration needed for Polygon mainnet.",
+      "description": ".agt agent names inside Claude Code: resolve a name to its owner and records, verify its manifest, find its MCP/A2A endpoints, check availability. Read-only by default (opt-in session write tools); no configuration needed for Polygon mainnet.",
       "homepage": "https://agtnames.com/docs/claude-code",
       "repository": "https://github.com/ds1/agt-plugins",
       "license": "MIT",
