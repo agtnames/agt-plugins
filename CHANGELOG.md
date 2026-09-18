@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 — 2026-09-18
+
+Pins the published `@agtnames/mcp@1.4.0`. `agt_resolve`, `agt_manifest` and `agt_endpoint` now return `manifestStatus` (`verified` | `unverified` | `unavailable` | `none`) so a manifest that could not be fetched (transport) is no longer read as one that failed verification (trust); the server instructions explain the vocabulary (ds1/agt-site#338). No plugin-side configuration changes.
+
 ## 1.3.0 — 2026-09-18
 
 Pins the published `@agtnames/mcp@1.3.0`. The server now walks its IPFS gateway allow-list in order (gateway.pinata.cloud first, then dweb.link, ipfs.io, w3s.link, cloudflare-ipfs) when reading an `ipfs://` manifest, so a 429 at one public gateway no longer makes a valid manifest read as unverified (ds1/agt-site#332). `.mcp.json` therefore no longer defaults `AGT_IPFS_GATEWAY` to dweb.link: empty means walk the list; set it only to pin one gateway.
