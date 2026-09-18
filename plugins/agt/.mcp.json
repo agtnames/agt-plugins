@@ -2,13 +2,13 @@
   "mcpServers": {
     "agt": {
       "command": "npx",
-      "args": ["-y", "@agtnames/mcp@1.2.0"],
+      "args": ["-y", "@agtnames/mcp@1.3.0"],
       "env": {
         "AGT_CHAIN": "${AGT_CHAIN:-polygon}",
         "AGT_RPC_URL": "${AGT_RPC_URL:-}",
         "AGT_REGISTRY": "${AGT_REGISTRY:-}",
         "AGT_LEGACY": "${AGT_LEGACY:-0}",
-        "AGT_IPFS_GATEWAY": "${AGT_IPFS_GATEWAY:-https://dweb.link/ipfs/}",
+        "AGT_IPFS_GATEWAY": "${AGT_IPFS_GATEWAY:-}",
         "AGT_TIMEOUT_MS": "${AGT_TIMEOUT_MS:-10000}",
         "AGT_SESSION_PASSPHRASE": "${AGT_SESSION_PASSPHRASE:-}",
         "AGT_SESSION_DIR": "${AGT_SESSION_DIR:-}"

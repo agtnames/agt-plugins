@@ -1,6 +1,6 @@
 {
   "name": "agt",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": ".agt agent names inside Claude Code — resolve, verify and discover agents by name via the @agtnames/mcp server. Read-only by default; session write tools (record writes under an owner-signed grant) switch on only when AGT_SESSION_PASSPHRASE is set. Works with any MCP-compatible client; this plugin adds the skill that tells Claude when and how to use it.",
   "author": {
     "name": "AGT Domains LLC",

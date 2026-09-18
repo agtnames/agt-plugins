@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 — 2026-09-18
+
+Pins the published `@agtnames/mcp@1.3.0`. The server now walks its IPFS gateway allow-list in order (gateway.pinata.cloud first, then dweb.link, ipfs.io, w3s.link, cloudflare-ipfs) when reading an `ipfs://` manifest, so a 429 at one public gateway no longer makes a valid manifest read as unverified (ds1/agt-site#332). `.mcp.json` therefore no longer defaults `AGT_IPFS_GATEWAY` to dweb.link: empty means walk the list; set it only to pin one gateway.
+
 ## 1.2.0 — 2026-09-17
 
 Pins the published `@agtnames/mcp@1.2.0`. The server adds nine **opt-in** write tools (`agt_session_*`, `agt_set_text`, `agt_set_addr`, `agt_set_endpoint`, `agt_set_wallet`, `agt_set_manifest_uri`) that redeem an owner-signed, on-chain-enforced session grant from `@agtnames/countersign`; they register only when `AGT_SESSION_PASSPHRASE` is set, so the default install stays the same five read-only tools. `.mcp.json` now passes `AGT_SESSION_PASSPHRASE` and `AGT_SESSION_DIR` through from the environment (empty = off).
