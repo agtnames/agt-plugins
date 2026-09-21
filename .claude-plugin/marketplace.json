@@ -5,7 +5,7 @@
     "url": "https://agtnames.com"
   },
   "metadata": {
-    "description": "Claude Code plugins for .agt agent names — resolve, verify and discover AI agents by name on AGT Registry v2. Docs: https://agtnames.com/docs/claude-code"
+    "description": "Claude Code plugins for .agt agent names \u2014 resolve, verify and discover AI agents by name on AGT Registry v2. Docs: https://agtnames.com/docs/claude-code"
   },
   "plugins": [
     {
@@ -15,7 +15,17 @@
       "homepage": "https://agtnames.com/docs/claude-code",
       "repository": "https://github.com/agtnames/agt-plugins",
       "license": "MIT",
-      "keywords": ["agt", "agent-identity", "mcp", "naming", "polygon"],
+      "keywords": [
+        "agt",
+        "agent-identity",
+        "mcp",
+        "naming",
+        "polygon",
+        "agtnames",
+        "agent-names",
+        "agt-names",
+        "ai-agents"
+      ],
       "category": "productivity"
     }
   ]
