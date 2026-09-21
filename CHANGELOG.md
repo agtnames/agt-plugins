@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0 — 2026-09-21
+
+Pins the published `@agtnames/mcp@1.5.0`. The package now exposes `buildServer` through its `exports` map (`main` is `dist/server.js`; the CLI entry stays `dist/index.js`), reads its version from a generated module so it can be bundled by a host, and ships alongside `@agtnames/resolver@1.3.0` with `agentCardFrom` (A2A agent card) and `erc8004RegistrationFrom` (ERC-8004 registration file) plus the `card` and `export-8004` CLI subcommands (ds1/agt-site#362, #363). No plugin-side configuration changes.
+
 ## 1.4.0 — 2026-09-18
 
 Pins the published `@agtnames/mcp@1.4.0`. `agt_resolve`, `agt_manifest` and `agt_endpoint` now return `manifestStatus` (`verified` | `unverified` | `unavailable` | `none`) so a manifest that could not be fetched (transport) is no longer read as one that failed verification (trust); the server instructions explain the vocabulary (ds1/agt-site#338). No plugin-side configuration changes.
