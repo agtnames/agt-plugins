@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2 — 2026-09-21
+
+Keywords `agtnames`, `agent-names`, `agt-names` (and `ai-agents` on the marketplace entry) so directory search finds the plugin by the brand as well as by `agt`. Server pin unchanged (`@agtnames/mcp@1.5.1`).
+
 ## 1.5.1 — 2026-09-21
 
 Pins the published `@agtnames/mcp@1.5.1`, whose only changes are metadata: the MCP registry name is now `com.agtnames/agt` (DNS-verified namespace), the server's `remotes` lists the hosted Streamable-HTTP endpoint `https://agtnames.com/api/mcp`, and the package `repository` points at the new public source repo `agtnames/agt`. This marketplace moved from `ds1/agt-plugins` to `agtnames/agt-plugins` (D-027); the old add command keeps working through GitHub's redirect, new docs use `/plugin marketplace add agtnames/agt-plugins`.
