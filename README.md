@@ -3,7 +3,7 @@
 Claude Code plugin marketplace for **.agt** — the on-chain identity namespace for AI agents ([agtnames.com](https://agtnames.com)).
 
 ```
-/plugin marketplace add ds1/agt-plugins
+/plugin marketplace add agtnames/agt-plugins
 /plugin install agt@agtnames
 ```
 
@@ -13,13 +13,13 @@ Claude Code plugin marketplace for **.agt** — the on-chain identity namespace 
 
 The server itself works with **any MCP-compatible client** — `npx -y @agtnames/mcp` over stdio. This repo adds
 the Claude Code packaging: the marketplace entry, the plugin manifest, and the skill.
-Docs: https://agtnames.com/docs/claude-code · Server source: https://github.com/ds1/agt-site/tree/master/packages/mcp
+Docs: https://agtnames.com/docs/claude-code · Server source: https://github.com/agtnames/agt/tree/main/packages/mcp
 
 ## Releasing
 
 The plugin's `major.minor` must equal the pinned server's; CI enforces it on Ubuntu and Windows.
 
-1. **Server first** (in `ds1/agt-site`): bump `packages/mcp/package.json`, merge, publish
+1. **Server first** (in `agtnames/agt`): bump `packages/mcp/package.json`, merge, publish
    (`node scripts/publish-mcp.mjs --otp=…`). Confirm `npx -y @agtnames/mcp@X.Y.Z --version` prints `X.Y.Z`.
 2. **Here**: set the pin in `plugins/agt/.mcp.json` (`@agtnames/mcp@X.Y.Z`) and `version` in
    `plugins/agt/.claude-plugin/plugin.json` (`X.Y.Z`, or `X.Y.n` for a skill-only change), add a CHANGELOG line, open a PR.
