@@ -6,7 +6,7 @@ tested version) and a skill that teaches Claude when to use it and how to read t
 owner-published content treated as data, connecting to a third-party agent left to you.
 
 ```
-/plugin marketplace add ds1/agt-plugins
+/plugin marketplace add agtnames/agt-plugins
 /plugin install agt@agtnames
 ```
 
@@ -22,7 +22,7 @@ Full documentation: https://agtnames.com/docs/claude-code
 If `/mcp` shows `spawn npx ENOENT`, register the server yourself through the shell and disable the plugin's copy:
 
 ```
-claude mcp add agt -- cmd /c npx -y @agtnames/mcp@1.5.0
+claude mcp add agt -- cmd /c npx -y @agtnames/mcp@1.5.1
 ```
 
 ## Versions
