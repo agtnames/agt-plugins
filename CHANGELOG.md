@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.3 — 2026-09-21
+
+Directory-ready metadata: `displayName` ".agt agent names", a description that states read-only behaviour, the network access the server makes (public Polygon RPC, allow-listed IPFS gateways), no telemetry, and the hosted alternative; category `development`. Server pin unchanged (`@agtnames/mcp@1.5.1`).
+
 ## 1.5.2 — 2026-09-21
 
 Keywords `agtnames`, `agent-names`, `agt-names` (and `ai-agents` on the marketplace entry) so directory search finds the plugin by the brand as well as by `agt`. Server pin unchanged (`@agtnames/mcp@1.5.1`).

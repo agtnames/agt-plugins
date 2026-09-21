@@ -5,13 +5,13 @@
     "url": "https://agtnames.com"
   },
   "metadata": {
-    "description": "Claude Code plugins for .agt agent names \u2014 resolve, verify and discover AI agents by name on AGT Registry v2. Docs: https://agtnames.com/docs/claude-code"
+    "description": "Claude Code plugins for .agt agent names: resolve, verify and discover AI agents by name on AGT Registry v2 (Polygon). Docs: https://agtnames.com/docs/claude-code"
   },
   "plugins": [
     {
       "name": "agt",
       "source": "./plugins/agt",
-      "description": ".agt agent names inside Claude Code: resolve a name to its owner and records, verify its manifest, find its MCP/A2A endpoints, check availability. Read-only by default (opt-in session write tools); no configuration needed for Polygon mainnet.",
+      "description": ".agt agent names inside Claude Code: resolve a name to its owner and on-chain records, verify its signed manifest against the current owner, find its MCP or A2A endpoint, and check whether a name is available. Bundles the read-only @agtnames/mcp server (npx, pinned version) plus a skill that tells Claude when to look a name up and how to read verified. Read-only by default; optional session write tools switch on only when you set AGT_SESSION_PASSPHRASE. Network access: public Polygon JSON-RPC and allow-listed IPFS gateways, read-only. No telemetry, no accounts, nothing to configure for Polygon mainnet. Hosted alternative for clients that take a URL: https://agtnames.com/api/mcp",
       "homepage": "https://agtnames.com/docs/claude-code",
       "repository": "https://github.com/agtnames/agt-plugins",
       "license": "MIT",
@@ -26,7 +26,8 @@
         "agt-names",
         "ai-agents"
       ],
-      "category": "productivity"
+      "category": "development",
+      "displayName": ".agt agent names"
     }
   ]
 }
