@@ -43,9 +43,18 @@ jobs:
 
       - name: Pinned server exists on npm and answers --version
         shell: bash
+        env:
+          PIN: ${{ steps.pin.outputs.pin }}
         run: |
-          v="$(npx -y @agtnames/mcp@${{ steps.pin.outputs.pin }} --version)"
-          test "$v" = "${{ steps.pin.outputs.pin }}" || { echo "expected ${{ steps.pin.outputs.pin }}, got $v"; exit 1; }
+          # npm serves a new version's packument before the CDN serves its tarball, so right after an mcp release
+          # `npx @agtnames/mcp@<pin>` can 404 on the .tgz for a minute or two (agtnames/agt#13). Retry a few times so
+          # the pin PR does not go red purely on that window; fail for real if it never resolves.
+          for i in 1 2 3 4 5 6; do
+            v="$(npx -y "@agtnames/mcp@$PIN" --version 2>/dev/null)" && [ "$v" = "$PIN" ] && { echo "npx serves $PIN"; exit 0; }
+            echo "attempt $i: got '${v:-<none>}', expected $PIN; the tarball may not be served yet — retrying in 20s"
+            sleep 20
+          done
+          echo "::error::@agtnames/mcp@$PIN did not resolve to a working --version after ~2 minutes"; exit 1
 
       - name: Pinned server speaks MCP over stdio when launched the way .mcp.json launches it
         shell: bash
