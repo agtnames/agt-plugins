@@ -22,7 +22,7 @@ Full documentation: https://agtnames.com/docs/claude-code
 If `/mcp` shows `spawn npx ENOENT`, register the server yourself through the shell and disable the plugin's copy:
 
 ```
-claude mcp add agt -- cmd /c npx -y @agtnames/mcp@1.5.1
+claude mcp add agt -- cmd /c npx -y @agtnames/mcp@1.5.2
 ```
 
 ## Versions
