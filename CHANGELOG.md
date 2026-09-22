@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.4 — 2026-09-22
+
+Pins the published `@agtnames/mcp@1.5.2`. The server now depends on `@agtnames/resolver` ^1.4.2 and reports a resolver `RpcUnavailableError` (every configured JSON-RPC endpoint down) as `rpc_unavailable` instead of `internal`, so a client can tell an outage from a bug and retry. No plugin-side configuration changes.
+
 ## 1.5.3 — 2026-09-21
 
 Directory-ready metadata: `displayName` ".agt agent names", a description that states read-only behaviour, the network access the server makes (public Polygon RPC, allow-listed IPFS gateways), no telemetry, and the hosted alternative; category `development`. Server pin unchanged (`@agtnames/mcp@1.5.1`).
